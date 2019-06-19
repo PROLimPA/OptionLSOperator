@@ -47,7 +47,10 @@ public class LSOperator {
 					if(parent.exists() && parent.isDirectory())
 						System.out.println(parent.getName());
 					
-					listFilesInDirectory(file);
+					File[] files = file.listFiles();
+					for(int i = 0; i < files.length; i++) {
+						System.out.println(files[i].getName());
+					}
 				}
 			}
 			
@@ -56,7 +59,7 @@ public class LSOperator {
 				if(file.exists() && file.isDirectory()) {
 					File[] files = file.listFiles();
 					for(int i = 0; i < files.length; i++) {
-						if(files[i].isDirectory()) {
+						if(files[i].isDirectory() && files[i].getName().charAt(0) != '.') {
 							System.out.println(files[i].getName() + "/");
 						}
 					}
@@ -68,7 +71,8 @@ public class LSOperator {
 				if(file.exists() && file.isDirectory()) {
 					File[] files = file.listFiles();
 					for(int i = 0; i < files.length; i++) {
-						if(files[i].isDirectory()) 
+						if(files[i].getName().charAt(0) == '.') continue;
+						else if(files[i].isDirectory()) 
 							System.out.println(files[i].getName() + "/");
 						else if(files[i].canExecute())
 							System.out.println(files[i].getName() + "*");
@@ -92,7 +96,8 @@ public class LSOperator {
 						}
 					}
 					for(int i = 0; i < files.length; i++) {
-						System.out.println(files[i].getName());
+						if(files[i].getName().charAt(0) != '.')
+							System.out.println(files[i].getName());
 					}
 				}
 			}
@@ -105,7 +110,7 @@ public class LSOperator {
 						
 					File[] files = file.listFiles();
 					for(int i = 0; i < files.length; i++) {
-						if(files[i].isDirectory()) {
+						if(files[i].isDirectory() && files[i].getName().charAt(0) != '.') {
 							System.out.println(files[i].getName() + " is Directory");
 							listFilesInDirectory(files[i]);
 							System.out.println("");
@@ -120,6 +125,7 @@ public class LSOperator {
 	private void listFilesInDirectory(File file) {
 		File[] files = file.listFiles();
 		for(int i = 0; i < files.length; i++) {
+			if(files[i].isHidden() || files[i].getName().charAt(0) == '.') continue;
 			System.out.println(files[i].getName());
 		}
 	}
