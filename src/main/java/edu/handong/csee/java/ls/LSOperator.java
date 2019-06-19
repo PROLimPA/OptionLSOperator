@@ -32,16 +32,6 @@ public class LSOperator {
 			listFilesInDirectory(file);
 		}
 		
-		else if(args[0].equals("ls") && !args[1].contains("-")) {
-			File file = new File(args[1]);
-			try {
-				listFilesInDirectory(file);
-			} catch(NullPointerException e) {
-				System.out.println("NullPointerException occurred! please pass the path of file.");
-				System.exit(0);
-			}
-		}
-		
 		else if(args[0].equals("ls") && parseOptions(options, args)) {
 			if(help) {
 				printHelp(options);
@@ -51,7 +41,7 @@ public class LSOperator {
 			if(aOption) {
 				File file = new File(".");
 				File parent = new File("..");
-								
+									
 				if(file.exists() && file.isDirectory()) {
 					System.out.println(file.getName());
 					if(parent.exists() && parent.isDirectory())
